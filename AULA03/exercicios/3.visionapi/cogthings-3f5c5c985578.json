@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "cogthings",
+  "private_key_id": "3f5c5c9855789c911ba6a4d71369f30061f720fc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8nc16fjuXyQPI\norMs9nSLG+OECLtd9XLPvLmnCqeIXklx/PayikpjZj7Rx2hRdALA0qApcKthQxRU\ndTTk/r6SSdtWeHsWOZX1z85Cby/6OVz+/hk4j/P9V5200WxCCK5P79iWRrzLMzva\nSvisrsBMDi9Nt8fN2heiMtpkG18Yi8gGIYFEcBToP7YUSQBKZKXu3fAKgrp6G1If\n68dTuwIUb3tfbSFpgKFcOrxjmNMhm+lpCuXhUrjkQfnV2V1xj6v0wtRdl010xSE+\nskhyTVVbshGED5NMfuzta0Fg0Bf5rdBJkqI/62wlQ6Hy1QYQOV4QYpOeuKoBE8qc\n3ZUwZ0ujAgMBAAECggEAFbLjxjFKgso91LGfAk+yFaTWNkTY5VTM6ggwpX5sypvq\nQCJVcTHGoAvNs02I+0Ho5Sz1/v52wOA6MQMw3B1QaDz17ks7AdILJfXLqUnoT5WU\n1ML/vMmWzLDtNDWZijk8cHbLyHIH2yqgOptAY4FRHw7Ms1iutEhgSqkmBbk+ZfDQ\nDl2+TlINkbIkUiGMBgkETmoVhGAZn1lH6m9MBhLc1xjiO+6Ilr1xUdZq06vm6xaq\nRlHPIX7bNCpyd8yIzZvm0OqRwswhiC+G5rSsY1ITXgLTWNMPQqeWUA/ptrBgJSvR\naFo6E75GtOWnOcDkDzGgyObDT0PhA1K+MYAFLgCY8QKBgQDuaAZeq0PntHIMMvD7\nMKWLRNhpgOCVRqwySD6n6JvzxXA0tNNGU/t15DeeS5BQ3ImAyQA0vRIuHXpP5nD/\nBI0a/zmJL9dNUnIAnGHKtqJlgJfOYnQHcqPFtf0xRNEF5XGGr5ufxNCYlsOTSnNY\nD2f3arm9ZMysz1Su6rA4cqgOEQKBgQDKiSVZgCcjWNuIj8XKIsKSqWWriE4f/Zo8\n1RJO/juqXWc7xfWQ87wBGd2B4ha3PTm/596jPm51c8o9ZCkBmzcUVdXN225UKSXH\nPau07SQDJ/O6i0+ntBHjkvavvjYDv6f0Xqz9wyCVWJoqAuIizccqFpcwtszTitFF\n9guFP4dacwKBgQCIJVvN4FxNC909XjIEIMnI+K3lwjV+yfc4V82AMfQtiAkF8GXe\n+cLWlle0zE5D/01/AEpf08F4GFlrG5xX5g925V3EHFAF1hlIhAXMr/OZp5AJymuc\nfTlNhRpscnIzvc3RLqPe35SIL0DM8m1gUpv6zTX5FIFWBqjDoz6zXbbfIQKBgEcj\nUr4T+Cs/K6TUsukjumnfG/na3233GnShdlPOklBtjDP/fRhTs8ZDOn1DVy03URBp\ntdZquEuCxxc3Ffwdc4Qt/fHXT/I5na5Up/ndjVeacc4k3m6OHfZsCT+DNN+uMqTv\nmB1tqwUp4MQ+zQTieED9PE989Yab7JOBL1y3CqinAoGASsIZgnCnOcdPHsDdn1RN\nLVsSqJA8YofK7N3AqqnD0+6VQzhKleTpnTDZkGwuTB2F/Iv5vM0siY2JwMI6riIg\n4tuFk1Vw4hpCByI5UFomrdfswdEfhmiRnPrXKcIxNG91guC5pB+Q3s0CKLGsiWM2\ncd9WiOHem3P5q3+atBOlhX0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "cogvision@cogthings.iam.gserviceaccount.com",
+  "client_id": "104704898833064592842",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cogvision%40cogthings.iam.gserviceaccount.com"
+}
