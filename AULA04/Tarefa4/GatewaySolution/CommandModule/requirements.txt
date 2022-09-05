@@ -1,3 +1,3 @@
 smbus2
 flask
-google-cloud-pubsub
+blynk-library-python

@@ -2,20 +2,10 @@ FROM arm32v7/python:3.8-slim-bullseye
 
 WORKDIR /app
 
-RUN apt update 
-RUN apt install -y build-essential
-
-RUN pip uninstall grpcio 
-RUN pip uninstall grpcio-status 
-RUN pip install grpcio==1.44.0 --no-binary=grpcio
-RUN pip install grpcio-tools==1.44.0 --no-binary=grpcio-tools
-
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
 COPY . .
-
-ENV GOOGLE_APPLICATION_CREDENTIALS "/app/service_account_key.json"
 
 EXPOSE 8081
 

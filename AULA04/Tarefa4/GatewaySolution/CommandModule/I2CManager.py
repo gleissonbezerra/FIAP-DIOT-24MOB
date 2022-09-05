@@ -1,24 +1,20 @@
 from threading import Thread
 import smbus2
 import time
-#import array
+import json
 
 class I2CManager:
-	def __init__(self, busNumber, address, ackEvent, mvEvent, stopEvent):
+	def __init__(self, busNumber, address, data_event):
 
 		self.bus = None
 		self.busNumber = busNumber
 		self.address = address
 		self.stopped = False
 
-		# self.lastData = ""
-		# self.ack = False
-		self.error = False
-		# self.lastAck = time.time()
+		self.temperature = 0
+		self.humidity = 0
 
-		self.ackEvent = ackEvent
-		self.mvEvent = mvEvent
-		self.stopEvent = stopEvent
+		self.data_event = data_event
 
 		print("Starting Serial BUS {} at {}".format(self.busNumber, self.address))
 
@@ -43,47 +39,38 @@ class I2CManager:
 				return
 				
 			try:
-				# Read a block of 16 bytes from address ADDRESS, offset 0
-				data = bytes(self.bus.read_i2c_block_data(self.address, 0, 16)).decode('cp855').rstrip()
 
-				if len(data) > 1:
-					#print("Processing incoming {} bytes ... {}".format(len(data), data))
+				data = bytes(self.bus.read_i2c_block_data(self.address, 0, 32)).decode('cp855').rstrip()
 
-					if data.find("ACK") > -1:
-						self.ackEvent()
+				if len(data) > 0:
 
-					elif data.find("MV") > -1:
+					print("Received data from I2C slave")
+					print(data)
 
-						deltaT = float ( data[2:5] ) #in seconds
-						omegaL = int ( data[5:8] ) #in RPM
-						omegaR = int ( data[8:] ) #in RPM
+					jsonData = json.loads(data)
 
-						self.mvEvent(deltaT,omegaL,omegaR)
+					if jsonData != None and "t" in jsonData and "h" in jsonData:
 
-					elif data.find("ST") > -1:
+						self.temperature = jsonData["t"]
+						self.humidity = jsonData["h"]
 
-						self.stopEvent()
+						self.data_event()
 
 					else:
-						print("Unknown message: "+data)
 
+						print("Error in get sensor data over i2C ")
 
-				
-				# else:
-				# 	print("Serial BUS is empty")
-				self.error = False
 
 			except Exception as e:
 
 				print("I2C Manager communication error on receiving %s " % e)
 
-				self.error = True
 				time.sleep(1)
 
 				self.bus = None
 				self.stopped = False
-				self.lastData = ""
-				#self.ack = False
+				self.temperature = 0
+				self.humidity = 0
 
 				print("Starting Serial BUS {} at {}".format(self.busNumber, self.address))
 
@@ -96,25 +83,16 @@ class I2CManager:
 			time.sleep(0.5)
 
 
-	# def read(self):
-	# 	r = self.lastData
-	# 	self.lastData = ""
-	# 	return r
-
 	def send(self, command):
 
 		try:
 			if self.bus != None:
-				#print("Sending command to I2C BUS: {}".format(command))
-				#self.lastData = ""
 				self.bus.write_i2c_block_data(self.address, 0, command.encode('utf-8'))			
 			else:
 				print("Serial not ready!")
-			self.error = False
 		except Exception as e:
 
 			print("I2C Manager communication error on sending %s " % e)
-			self.error = True
 
 			time.sleep(1)
 

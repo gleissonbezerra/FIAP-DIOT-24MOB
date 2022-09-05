@@ -1,5 +1,7 @@
 from flask import Flask, Response, request
-from google.cloud import pubsub_v1
+
+from BlynkConnection import BlynkConnection
+from I2CManager import I2CManager
 
 import json
 import sys
@@ -9,6 +11,13 @@ import time
 app = Flask(__name__)
 
 
+def dataHandler():
+    global i2c
+    global blynkC
+
+    blynkC.blynk.virtual_write(0, i2c.temperature)
+    blynkC.blynk.virtual_write(1, i2c.humidity)
+
 def parseRequest(r):
  
     return r.json
@@ -17,6 +26,7 @@ def parseRequest(r):
 def alert():
 
     global i2c
+    global blynkC
     global I2C_SLAVE_ADDRESS
     global alertStarted
     global alertTimer
@@ -45,28 +55,15 @@ def alert():
                     if time.time() - alertTimer >= PEOPLE_ALERT_INTERVAL:
                         print ("Alert confirmed. Sendindg notification...")
 
-                        DEVICE_ID = os.getenv('DEVICE_ID', "G0")
-                        PROJECT_ID = os.getenv('PROJECT_ID', "cogthings")
-                        TOPIC_ID = os.getenv('TOPIC_ID', "fiap")
 
-                        publisher = pubsub_v1.PublisherClient()
-                        topic_path = publisher.topic_path(PROJECT_ID, TOPIC_ID)
-
-                        data_str = '{"device":'+DEVICE_ID+', "type":"peopleAlert", "count":'+str(peopleDetected)+'}'
-
-                        # Data must be a bytestring
-                        data = data_str.encode("utf-8")
-                        # When you publish a message, the client returns a future.
-                        future = publisher.publish(topic_path, data)
+                        blynkC.log_event("people_alert")
 
                         print ("Notification sent!")
 
-                        print(future.result())                        
-
                         #send close command over i2c
-                        #command = "close"
-                        #print("Sending "+command+" to I2C slave!")
-                        #i2c.write_i2c_block_data(I2C_SLAVE_ADDRESS, 0, command.encode('utf-8'))			
+                        command = "close"
+                        print("Sending "+command+" to I2C slave!")
+                        i2c.send(command)			
 
                         alertStarted = False
 
@@ -90,6 +87,7 @@ def alert():
 def main():
 
     global i2c
+    global blynkC
     global I2C_BUS_NUMBER
     global I2C_SLAVE_ADDRESS
     global alertStarted
@@ -98,8 +96,13 @@ def main():
     alertStarted = False
     alertTimer = time.time()
 
-    I2C_BUS_NUMBER = int(os.getenv('I2C_BUS_NUMBER', "0"))
+    I2C_BUS_NUMBER = int(os.getenv('I2C_BUS_NUMBER', "1"))
     I2C_SLAVE_ADDRESS = int(os.getenv('I2C_SLAVE_ADDRESS', 0x08))
+
+    BLYNK_TOKEN = os.getenv('BLYNK_TOKEN', "")
+
+    blynkC = BlynkConnection(BLYNK_TOKEN).start()
+    i2c = I2CManager(I2C_BUS_NUMBER, I2C_SLAVE_ADDRESS, dataHandler).start()
 
     try:
         print("\nPython %s\n" % sys.version )
