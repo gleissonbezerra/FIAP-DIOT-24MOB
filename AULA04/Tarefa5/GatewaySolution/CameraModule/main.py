@@ -89,7 +89,7 @@ def main():
     CAMERA_INDEX = int(os.getenv('CAMERA_INDEX', "0"))
     CAMERA_INTERVAL = float(os.getenv('CAMERA_INTERVAL', "1.0"))
     INFERENCE_URL = os.getenv('INFERENCE_URL', "http://0.0.0.0:8080/analyze")
-    ALERT_URL = os.getenv('EVENT_URL', "http://0.0.0.0:8080/alert")
+    ALERT_URL = os.getenv('ALERT_URL', "http://0.0.0.0:8080/alert")
 
     vf = cv.VideoCapture(CAMERA_INDEX)
 

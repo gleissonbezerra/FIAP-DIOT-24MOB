@@ -161,6 +161,8 @@ void loop()
       if (!halt)
       {
         valveServo.write(currentPos);
+      }else{
+        currentPos = 0;
       }
         
      Serial.print(" ");
